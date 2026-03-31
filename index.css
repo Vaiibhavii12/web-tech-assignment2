@@ -1,0 +1,237 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --bg-primary: #0d0f18;
+    --bg-secondary: #13151f;
+    --bg-card: #1a1d2e;
+    --bg-card-hover: #1f2235;
+    --border: rgba(99, 102, 241, 0.15);
+    --border-hover: rgba(99, 102, 241, 0.35);
+    --text-primary: #f0f4ff;
+    --text-secondary: #8b9cc8;
+    --brand: #6366f1;
+    --brand-light: #818cf8;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    font-family: 'DM Sans', sans-serif;
+    overflow-x: hidden;
+  }
+
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--bg-primary);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: rgba(99, 102, 241, 0.4);
+    border-radius: 3px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(99, 102, 241, 0.7);
+  }
+
+  ::selection {
+    background: rgba(99, 102, 241, 0.4);
+    color: white;
+  }
+}
+
+@layer components {
+  .glass-card {
+    @apply bg-surface-800 border border-[rgba(99,102,241,0.15)] rounded-2xl backdrop-blur-sm;
+    background: linear-gradient(135deg, rgba(26,29,46,0.95) 0%, rgba(19,21,31,0.98) 100%);
+    box-shadow: 0 4px 24px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.04);
+  }
+
+  .glass-card:hover {
+    border-color: rgba(99, 102, 241, 0.3);
+    box-shadow: 0 8px 40px rgba(0,0,0,0.4), 0 0 20px rgba(99,102,241,0.08), inset 0 1px 0 rgba(255,255,255,0.06);
+    transition: all 0.3s ease;
+  }
+
+  .btn-primary {
+    @apply relative overflow-hidden px-6 py-3 rounded-xl font-medium text-white transition-all duration-300;
+    background: linear-gradient(135deg, #6366f1 0%, #4f46e5 50%, #4338ca 100%);
+    box-shadow: 0 4px 20px rgba(99, 102, 241, 0.4), inset 0 1px 0 rgba(255,255,255,0.1);
+  }
+
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(99, 102, 241, 0.6), inset 0 1px 0 rgba(255,255,255,0.15);
+  }
+
+  .btn-primary:active {
+    transform: translateY(0);
+  }
+
+  .btn-primary::before {
+    content: '';
+    position: absolute;
+    top: 0; left: -100%;
+    width: 100%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.12), transparent);
+    transition: left 0.5s ease;
+  }
+
+  .btn-primary:hover::before {
+    left: 100%;
+  }
+
+  .btn-ghost {
+    @apply px-4 py-2 rounded-xl font-medium transition-all duration-200 text-[#8b9cc8];
+    border: 1px solid rgba(99, 102, 241, 0.15);
+  }
+
+  .btn-ghost:hover {
+    @apply text-white;
+    background: rgba(99, 102, 241, 0.12);
+    border-color: rgba(99, 102, 241, 0.35);
+  }
+
+  .input-field {
+    @apply w-full px-4 py-3 rounded-xl text-white placeholder-[#4a5480] outline-none transition-all duration-200;
+    background: rgba(13, 15, 24, 0.8);
+    border: 1px solid rgba(99, 102, 241, 0.2);
+    font-family: 'DM Sans', sans-serif;
+  }
+
+  .input-field:focus {
+    border-color: rgba(99, 102, 241, 0.6);
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.12), 0 0 20px rgba(99, 102, 241, 0.1);
+  }
+
+  .priority-badge {
+    @apply inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-semibold;
+  }
+
+  .status-badge {
+    @apply inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold;
+  }
+
+  .sidebar-link {
+    @apply flex items-center gap-3 px-4 py-3 rounded-xl text-[#8b9cc8] font-medium transition-all duration-200 cursor-pointer;
+  }
+
+  .sidebar-link:hover {
+    @apply text-white;
+    background: rgba(99, 102, 241, 0.1);
+  }
+
+  .sidebar-link.active {
+    @apply text-white;
+    background: linear-gradient(135deg, rgba(99,102,241,0.2) 0%, rgba(79,70,229,0.15) 100%);
+    border: 1px solid rgba(99, 102, 241, 0.25);
+    box-shadow: 0 0 20px rgba(99, 102, 241, 0.1);
+  }
+
+  .kanban-column {
+    @apply flex flex-col gap-3 p-4 rounded-2xl min-h-[300px] min-w-[280px];
+    background: rgba(19, 21, 31, 0.7);
+    border: 1px solid rgba(99, 102, 241, 0.1);
+  }
+
+  .task-card {
+    @apply glass-card p-4 cursor-pointer animate-slide-up;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .task-card:hover {
+    transform: translateY(-3px) scale(1.01);
+  }
+
+  .progress-bar {
+    @apply h-2 rounded-full overflow-hidden;
+    background: rgba(99, 102, 241, 0.15);
+  }
+
+  .progress-fill {
+    @apply h-full rounded-full transition-all duration-700;
+    background: linear-gradient(90deg, #6366f1, #818cf8, #a5b8fc);
+    box-shadow: 0 0 10px rgba(99, 102, 241, 0.5);
+  }
+
+  .stat-card {
+    @apply glass-card p-6 flex flex-col gap-3;
+  }
+
+  .glow-text {
+    text-shadow: 0 0 30px rgba(99, 102, 241, 0.6), 0 0 60px rgba(99, 102, 241, 0.3);
+  }
+
+  .page-bg {
+    background: var(--bg-primary);
+    background-image: radial-gradient(at 10% 10%, rgba(99,102,241,0.08) 0px, transparent 50%),
+                      radial-gradient(at 90% 90%, rgba(168,85,247,0.06) 0px, transparent 50%),
+                      radial-gradient(at 50% 50%, rgba(79,70,229,0.04) 0px, transparent 70%);
+    min-height: 100vh;
+  }
+
+  .modal-overlay {
+    @apply fixed inset-0 z-50 flex items-center justify-center p-4;
+    background: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(8px);
+    animation: fadeIn 0.2s ease;
+  }
+
+  .modal-content {
+    @apply glass-card w-full max-w-lg p-6 animate-slide-up;
+    max-height: 90vh;
+    overflow-y: auto;
+  }
+
+  .tag-chip {
+    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium;
+    background: rgba(99, 102, 241, 0.15);
+    color: #818cf8;
+    border: 1px solid rgba(99, 102, 241, 0.2);
+  }
+}
+
+/* Animations */
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.skeleton {
+  background: linear-gradient(90deg, rgba(26,29,46,0.8) 25%, rgba(36,40,60,0.8) 50%, rgba(26,29,46,0.8) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+/* Drag and drop */
+.dragging {
+  opacity: 0.5;
+  transform: scale(0.95) rotate(2deg);
+  transition: all 0.2s ease;
+}
+
+.drag-over {
+  border-color: rgba(99, 102, 241, 0.6) !important;
+  background: rgba(99, 102, 241, 0.08) !important;
+}
+
+/* Chart bars */
+.bar-animate {
+  animation: growUp 0.8s ease forwards;
+  transform-origin: bottom;
+}
+
+@keyframes growUp {
+  from { transform: scaleY(0); }
+  to { transform: scaleY(1); }
+}
